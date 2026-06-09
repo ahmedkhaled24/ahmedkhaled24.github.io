@@ -1,63 +1,391 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahmed Khaled | Senior Android Engineer</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #cbd5e1;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 120px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+        }
+
+        .hero h2 {
+            color: #38bdf8;
+            font-weight: normal;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 20px auto;
+            font-size: 1.1rem;
+        }
+
+        .buttons {
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 12px 24px;
+            margin: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
+
+        .btn-secondary {
+            border: 2px solid #38bdf8;
+            color: #38bdf8;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #38bdf8;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: #1e293b;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .card h3 {
+            color: #38bdf8;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .skill {
+            background-color: #1e293b;
+            padding: 10px 18px;
+            border-radius: 25px;
+        }
+
+        .experience-item {
+            background-color: #1e293b;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #020617;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
 </head>
 
-<body style="font-family: Arial; max-width: 800px; margin: auto; padding: 40px;">
+<body>
 
-    <h1>Ahmed Khaled</h1>
+<section class="hero">
+    <div class="container">
+        <h1>Ahmed Khaled</h1>
 
-    <h2>Senior Android Engineer</h2>
+        <h2>Senior Android Engineer</h2>
 
-    <p>
-        Digital Identity | Enterprise Mobility | Mobile Products
-    </p>
+        <p>
+            Digital Identity • Biometrics • Enterprise Mobility • Mobile Products
+        </p>
 
-    <hr>
+        <p>
+            Senior Android Engineer with 5+ years of experience building secure,
+            scalable Android applications across enterprise systems, digital identity,
+            fintech, healthcare, logistics, and commercial products.
+        </p>
 
-    <h2>About Me</h2>
+        <div class="buttons">
+            <a href="Ahmed_Khaled_CV.pdf" class="btn btn-primary">
+                Download CV
+            </a>
 
-    <p>
-        Senior Android Engineer with 5 years of experience building scalable Android applications
-        across enterprise systems and commercial products.
-    </p>
+            <a href="https://linkedin.com/in/YOUR_LINKEDIN" class="btn btn-secondary">
+                LinkedIn
+            </a>
 
-    <h2>Core Expertise</h2>
+            <a href="https://github.com/ahmedkhaled24" class="btn btn-secondary">
+                GitHub
+            </a>
+        </div>
+    </div>
+</section>
 
-    <ul>
-        <li>Android Architecture & System Design</li>
-        <li>Digital Identity & Biometrics</li>
-        <li>Offline-First Applications</li>
-        <li>Computer Vision Integration</li>
-        <li>Enterprise Mobility Solutions</li>
-    </ul>
+<section>
+    <div class="container">
 
-    <h2>Key Projects</h2>
+        <h2 class="section-title">About Me</h2>
 
-    <h3>NID - National Identity Enrollment Platform</h3>
-    <p>
-        Biometric enrollment platform supporting fingerprint capture,
-        smart cards, MRZ recognition, and identity validation.
-    </p>
+        <p style="text-align:center; max-width:900px; margin:auto;">
+            I specialize in enterprise-grade Android solutions focused on digital identity,
+            biometric enrollment, offline-first architectures, and secure mobile systems.
+            I have hands-on experience delivering production applications used in mission-critical
+            environments where reliability, security, and performance are essential.
+        </p>
 
-    <h3>EVS - Enrollment Verification System</h3>
-    <p>
-        Enterprise biometric verification platform supporting
-        fingerprint enrollment, face validation, and passport processing.
-    </p>
+    </div>
+</section>
 
-    <h3>MDM - Mobile Device Management</h3>
-    <p>
-        Enterprise Android management solution for centralized
-        device control and policy enforcement.
-    </p>
+<section>
+    <div class="container">
 
-    <h2>Contact</h2>
+        <h2 class="section-title">Featured Projects</h2>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>NID — National Identity Enrollment Platform</h3>
+
+                <p>
+                    Enterprise enrollment platform designed for identity registration
+                    and biometric capture workflows.
+                </p>
+
+                <br>
+
+                <strong>Highlights:</strong>
+
+                <ul>
+                    <li>Fingerprint Enrollment</li>
+                    <li>Smart Card Integration</li>
+                    <li>MRZ Recognition</li>
+                    <li>CameraX Validation Pipelines</li>
+                    <li>Offline Synchronization</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>EVS — Enrollment Verification System</h3>
+
+                <p>
+                    Enterprise biometric identity verification platform supporting
+                    realtime and offline enrollment.
+                </p>
+
+                <br>
+
+                <strong>Highlights:</strong>
+
+                <ul>
+                    <li>Fingerprint Verification</li>
+                    <li>Face Validation</li>
+                    <li>Passport MRZ Processing</li>
+                    <li>WebSocket Communication</li>
+                    <li>Offline Support</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>MDM — Mobile Device Management</h3>
+
+                <p>
+                    Enterprise Android management solution for centralized device
+                    control and policy enforcement.
+                </p>
+
+                <br>
+
+                <strong>Highlights:</strong>
+
+                <ul>
+                    <li>Device Administration</li>
+                    <li>Policy Enforcement</li>
+                    <li>Managed Configurations</li>
+                    <li>Multi-Version Support</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>Oscar Grand Stores</h3>
+
+                <p>
+                    Retail and e-commerce mobile application supporting customer engagement
+                    and commercial workflows.
+                </p>
+
+                <br>
+
+                <strong>Highlights:</strong>
+
+                <ul>
+                    <li>Geofencing</li>
+                    <li>Deep Linking</li>
+                    <li>Payment Integration</li>
+                    <li>Production Support</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section>
+    <div class="container">
+
+        <h2 class="section-title">Technical Skills</h2>
+
+        <div class="skills">
+
+            <span class="skill">Kotlin</span>
+            <span class="skill">Jetpack Compose</span>
+            <span class="skill">Java</span>
+            <span class="skill">Coroutines</span>
+            <span class="skill">Flow</span>
+            <span class="skill">Room</span>
+            <span class="skill">WorkManager</span>
+            <span class="skill">MVVM</span>
+            <span class="skill">MVI</span>
+            <span class="skill">Clean Architecture</span>
+            <span class="skill">Hilt</span>
+            <span class="skill">Retrofit</span>
+            <span class="skill">WebSockets</span>
+            <span class="skill">CameraX</span>
+            <span class="skill">ML Kit</span>
+            <span class="skill">OpenCV</span>
+            <span class="skill">Fingerprint SDKs</span>
+            <span class="skill">Firebase</span>
+            <span class="skill">Google Maps</span>
+            <span class="skill">Azure Pipelines</span>
+
+        </div>
+
+    </div>
+</section>
+
+<section>
+    <div class="container">
+
+        <h2 class="section-title">Professional Experience</h2>
+
+        <div class="experience-item">
+            <h3>ID-TK</h3>
+
+            <p>
+                <strong>Software Engineer</strong> | 2024 – Present
+            </p>
+
+            <p>
+                Leading and contributing to enterprise biometric enrollment and
+                identity verification systems.
+            </p>
+        </div>
+
+        <div class="experience-item">
+            <h3>IDEMIA</h3>
+
+            <p>
+                <strong>Android Engineer</strong> | 2024
+            </p>
+
+            <p>
+                Contributed to secure identity solutions and enterprise biometric
+                enrollment platforms.
+            </p>
+        </div>
+
+        <div class="experience-item">
+            <h3>Momentum Solutions</h3>
+
+            <p>
+                <strong>Android Developer</strong> | 2021 – 2024
+            </p>
+
+            <p>
+                Delivered fintech, healthcare, logistics, and e-commerce mobile
+                applications using modern Android technologies.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+
+    <h2>Let's Connect</h2>
+
+    <br>
 
     <p>Email: ahmed.khaled.developer@gmail.com</p>
 
-    <p>GitHub: github.com/ahmedkhaled24</p>
+    <p>Phone: +20 1120705039</p>
+
+    <p>Location: Cairo, Egypt</p>
+
+    <p>Open to Remote & Relocation Opportunities</p>
+
+    <br>
+
+    <p>
+        © 2026 Ahmed Khaled. All rights reserved.
+    </p>
+
+</footer>
 
 </body>
 </html>
+```
