@@ -1,391 +1,1149 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahmed Khaled | Senior Android Engineer</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ahmed Khaled — Android Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #0f172a;
-            color: #e2e8f0;
-        }
+    :root {
+      --bg:          #0F1117;
+      --bg-card:     #161B27;
+      --bg-subtle:   #1A2035;
+      --text:        #E8EAF0;
+      --text-muted:  #8892A4;
+      --accent:      #00D4FF;
+      --accent-dim:  rgba(0, 212, 255, 0.12);
+      --accent-glow: rgba(0, 212, 255, 0.25);
+      --border:      rgba(255,255,255,0.07);
+      --gold:        #FFB547;
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body:    'Inter', sans-serif;
+      --font-mono:    'JetBrains Mono', monospace;
+    }
 
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: auto;
-        }
+    html { scroll-behavior: smooth; }
 
-        section {
-            padding: 80px 0;
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-        h1, h2, h3 {
-            margin-bottom: 20px;
-        }
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 64px;
+      background: rgba(15,17,23,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0.4rem 1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent); color: var(--bg); }
 
-        p {
-            color: #cbd5e1;
-        }
+    /* ── HERO ────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 5vw 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4rem;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero-text { flex: 1; max-width: 600px; }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--accent);
+      display: inline-block;
+    }
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .hero-name span { color: var(--accent); }
+    .hero-role {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-bottom: 1.8rem;
+    }
+    .hero-desc {
+      font-size: 0.97rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 480px;
+      margin-bottom: 2.4rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.75rem 1.6rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.75rem 1.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 
-        .hero {
-            text-align: center;
-            padding: 120px 20px;
-        }
+    /* Fingerprint SVG */
+    .hero-graphic {
+      flex: 0 0 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .fp-wrap {
+      position: relative;
+      width: 280px; height: 280px;
+    }
+    .fp-ring {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      border: 1px solid var(--accent-dim);
+      animation: pulse-ring 3s ease-in-out infinite;
+    }
+    .fp-ring:nth-child(2) { inset: -20px; animation-delay: 0.6s; opacity: 0.5; }
+    .fp-ring:nth-child(3) { inset: -40px; animation-delay: 1.2s; opacity: 0.25; }
+    @keyframes pulse-ring {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.04); opacity: 0.2; }
+    }
+    .fp-svg {
+      width: 220px; height: 220px;
+      margin: 30px;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 24px var(--accent-glow));
+    }
+    .fp-scan-line {
+      position: absolute;
+      top: 30px; left: 30px; right: 30px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      animation: scan 2.8s ease-in-out infinite;
+      border-radius: 1px;
+    }
+    @keyframes scan {
+      0%   { transform: translateY(0);     opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateY(220px); opacity: 0; }
+    }
 
-        .hero h1 {
-            font-size: 3rem;
-        }
+    /* hero bg grid */
+    #hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 70% 70% at 80% 50%, black, transparent);
+      pointer-events: none;
+    }
 
-        .hero h2 {
-            color: #38bdf8;
-            font-weight: normal;
-        }
+    /* ── STATS BAR ──────────────────────────────────────── */
+    .stats-bar {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 5vw;
+    }
+    .stats-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; gap: 0; justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    .stat {
+      text-align: center;
+      padding: 0.5rem 2rem;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
 
-        .hero p {
-            max-width: 700px;
-            margin: 20px auto;
-            font-size: 1.1rem;
-        }
+    /* ── SECTION SHARED ─────────────────────────────────── */
+    section { padding: 100px 5vw; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+    }
+    .section-title em {
+      font-style: normal;
+      color: var(--accent);
+    }
 
-        .buttons {
-            margin-top: 30px;
-        }
+    /* ── ABOUT ──────────────────────────────────────────── */
+    #about { background: var(--bg); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-body {
+      font-size: 0.97rem;
+      color: var(--text-muted);
+      line-height: 1.85;
+    }
+    .about-body p + p { margin-top: 1.2rem; }
+    .about-body strong { color: var(--text); }
+    .about-tags {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-top: 1.8rem;
+    }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 0.3rem 0.75rem;
+      border-radius: 3px;
+      border: 1px solid rgba(0,212,255,0.2);
+      letter-spacing: 0.04em;
+    }
+    .about-highlights { display: flex; flex-direction: column; gap: 1rem; }
+    .highlight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem 1.6rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .highlight-card:hover { border-color: rgba(0,212,255,0.3); transform: translateX(4px); }
+    .highlight-icon {
+      font-size: 1.5rem;
+      margin-top: 0.1rem;
+      flex-shrink: 0;
+    }
+    .highlight-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .highlight-desc {
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
 
-        .btn {
-            display: inline-block;
-            text-decoration: none;
-            padding: 12px 24px;
-            margin: 10px;
-            border-radius: 8px;
-            font-weight: bold;
-        }
+    /* ── SKILLS ─────────────────────────────────────────── */
+    #skills { background: var(--bg-card); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    .skill-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .skill-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .skill-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+    .skill-card:hover::before { transform: scaleX(1); }
+    .skill-card-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .skill-card-title {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.9rem;
+      color: var(--text);
+    }
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-pill {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      background: var(--bg-subtle);
+      padding: 0.25rem 0.6rem;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+    }
 
-        .btn-primary {
-            background-color: #38bdf8;
-            color: #0f172a;
-        }
+    /* ── EXPERIENCE ─────────────────────────────────────── */
+    #experience { background: var(--bg); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 1px;
+      background: linear-gradient(180deg, var(--accent), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      padding-bottom: 3.5rem;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: -2.4rem;
+      top: 8px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-dim);
+    }
+    .timeline-meta {
+      display: flex; align-items: center; gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.8rem;
+    }
+    .timeline-company {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .timeline-period {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      background: var(--accent-dim);
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+    }
+    .timeline-role {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .timeline-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.6rem;
+    }
+    .timeline-bullets {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .timeline-bullets li {
+      font-size: 0.87rem;
+      color: var(--text-muted);
+      display: flex; gap: 0.7rem; align-items: flex-start;
+    }
+    .timeline-bullets li::before {
+      content: '›';
+      color: var(--accent);
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: -0.05rem;
+    }
+    .stack-line {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
 
-        .btn-secondary {
-            border: 2px solid #38bdf8;
-            color: #38bdf8;
-        }
+    /* ── PROJECTS ───────────────────────────────────────── */
+    #projects { background: var(--bg-card); }
+    .projects-section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .projects-group { margin-bottom: 3.5rem; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.2rem;
+    }
+    .project-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .project-card:hover { border-color: rgba(0,212,255,0.35); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.35); }
+    .project-card:hover::after { transform: scaleX(1); }
+    .project-card-type {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+    }
+    .project-card-type.gov { color: var(--accent); }
+    .project-name {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .project-tagline {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+      line-height: 1.6;
+    }
+    .project-contributions { flex: 1; margin-bottom: 1.4rem; }
+    .project-contributions li {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex; gap: 0.6rem; align-items: flex-start;
+      margin-bottom: 0.4rem;
+    }
+    .project-contributions li::before {
+      content: '›';
+      color: var(--accent);
+      flex-shrink: 0;
+    }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            color: #38bdf8;
-        }
+    /* ── CONTACT ────────────────────────────────────────── */
+    #contact { background: var(--bg); }
+    .contact-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-inner .section-title { margin-bottom: 1rem; }
+    .contact-sub {
+      font-size: 0.97rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+      line-height: 1.75;
+    }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.6rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.8rem 1.4rem;
+      text-decoration: none;
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .contact-link svg { width: 16px; height: 16px; fill: currentColor; }
+    .open-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: #4ade80;
+      background: rgba(74,222,128,0.1);
+      border: 1px solid rgba(74,222,128,0.25);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+    }
+    .open-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: blink 1.8s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+    footer span { color: var(--accent); }
 
-        .card {
-            background-color: #1e293b;
-            padding: 25px;
-            border-radius: 12px;
-        }
+    /* ── SCROLL ANIMATIONS ──────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-        .card h3 {
-            color: #38bdf8;
-        }
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero-graphic { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .stats-inner { gap: 1rem; }
+      .stat { padding: 0.5rem 1rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      section { padding: 70px 5vw; }
+      .stat { border-right: none; }
+    }
 
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-        }
-
-        .skill {
-            background-color: #1e293b;
-            padding: 10px 18px;
-            border-radius: 25px;
-        }
-
-        .experience-item {
-            background-color: #1e293b;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-        }
-
-        ul {
-            padding-left: 20px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            background-color: #020617;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-        }
-    </style>
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .fp-scan-line, .fp-ring, .open-dot { animation: none; transition: none; }
+    }
+  </style>
 </head>
-
 <body>
 
-<section class="hero">
-    <div class="container">
-        <h1>Ahmed Khaled</h1>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">ahmed.khaled</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="mailto:ahmed.khaled.developer@gmail.com">Hire Me</a>
+  </nav>
 
-        <h2>Senior Android Engineer</h2>
-
-        <p>
-            Digital Identity • Biometrics • Enterprise Mobility • Mobile Products
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-eyebrow">Senior Android Engineer</p>
+        <h1 class="hero-name">Ahmed<br /><span>Khaled</span></h1>
+        <p class="hero-role">Building Identity Systems That Scale</p>
+        <p class="hero-desc">
+          5 years engineering enterprise Android applications — from biometric enrollment
+          platforms and national ID systems to real-time fintech and healthcare products.
+          Specialist in digital identity, clean architecture, and secure mobile systems.
         </p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="#projects">View Work</a>
+          <a class="btn-secondary" href="mailto:ahmed.khaled.developer@gmail.com">Get in Touch</a>
+        </div>
+      </div>
+      <div class="hero-graphic">
+        <div class="fp-wrap">
+          <div class="fp-ring"></div>
+          <div class="fp-ring"></div>
+          <div class="fp-ring"></div>
+          <!-- Fingerprint SVG -->
+          <svg class="fp-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 10 C29 10 12 27 12 48 C12 60 17 71 25 79" stroke="#00D4FF" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.9"/>
+            <path d="M50 10 C71 10 88 27 88 48 C88 60 83 71 75 79" stroke="#00D4FF" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.9"/>
+            <path d="M50 20 C34 20 22 33 22 48 C22 57 26 65 33 71" stroke="#00D4FF" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.75"/>
+            <path d="M50 20 C66 20 78 33 78 48 C78 57 74 65 67 71" stroke="#00D4FF" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.75"/>
+            <path d="M50 30 C39 30 32 38 32 48 C32 55 36 61 42 65" stroke="#00D4FF" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.65"/>
+            <path d="M50 30 C61 30 68 38 68 48 C68 55 64 61 58 65" stroke="#00D4FF" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.65"/>
+            <path d="M50 40 C45 40 42 44 42 48 C42 52 44 55 47 57" stroke="#00D4FF" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.55"/>
+            <path d="M50 40 C55 40 58 44 58 48 C58 52 56 55 53 57" stroke="#00D4FF" stroke-width="1.4" stroke-linecap="round" fill="none" opacity="0.55"/>
+            <circle cx="50" cy="48" r="3" fill="#00D4FF" opacity="0.8"/>
+            <path d="M38 80 C41 85 45 88 50 89 C55 88 59 85 62 80" stroke="#00D4FF" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.5"/>
+            <path d="M28 74 C32 82 40 88 50 90 C60 88 68 82 72 74" stroke="#00D4FF" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.35"/>
+          </svg>
+          <div class="fp-scan-line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        <p>
-            Senior Android Engineer with 5+ years of experience building secure,
-            scalable Android applications across enterprise systems, digital identity,
-            fintech, healthcare, logistics, and commercial products.
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Production Apps</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Enterprise Platforms</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">Gov</div>
+        <div class="stat-label">Identity Systems</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-eyebrow">// about</p>
+        <h2 class="section-title">Engineer, not just a<br /><em>developer</em></h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-body reveal">
+          <p>
+            I build Android applications where <strong>accuracy matters</strong> — national identity
+            enrollment platforms, biometric capture systems, and enterprise mobility solutions
+            used in high-stakes government and regulated environments.
+          </p>
+          <p>
+            My work sits at the intersection of <strong>mobile engineering and identity technology</strong>:
+            CameraX pipelines for document acquisition, fingerprint SDK integration,
+            MRZ/barcode scanning, and offline-first sync for unreliable field conditions.
+          </p>
+          <p>
+            I apply <strong>Clean Architecture</strong> and Jetpack Compose not as buzzwords,
+            but as tools that let teams move fast and maintain confidence in production.
+            I care deeply about code that can be read, tested, and evolved by the next engineer.
+          </p>
+          <div class="about-tags">
+            <span class="tag">Cairo, Egypt</span>
+            <span class="tag">Open to Relocation</span>
+            <span class="tag">Remote-Ready</span>
+            <span class="tag">Arabic / English</span>
+          </div>
+        </div>
+        <div class="about-highlights reveal">
+          <div class="highlight-card">
+            <div class="highlight-icon">🪪</div>
+            <div>
+              <div class="highlight-title">Digital Identity</div>
+              <div class="highlight-desc">NID enrollment, biometric capture, MRZ scanning, document validation, and smart card integration for government-grade systems.</div>
+            </div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-icon">📐</div>
+            <div>
+              <div class="highlight-title">Clean Architecture</div>
+              <div class="highlight-desc">Rigorous application of Clean Architecture + MVVM/MVI, Hilt DI, modularization, and testable code in production-critical codebases.</div>
+            </div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-icon">📡</div>
+            <div>
+              <div class="highlight-title">Offline-First Systems</div>
+              <div class="highlight-desc">Room-based sync strategies, WebSocket communication, and resilient enrollment flows designed for unstable network environments.</div>
+            </div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-icon">🔒</div>
+            <div>
+              <div class="highlight-title">Secure Mobile</div>
+              <div class="highlight-desc">SSL/TLS, Android Keystore, certificate pinning, encrypted local storage, and enterprise device policy management.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-eyebrow">// skills</p>
+        <h2 class="section-title">Full-stack of the<br /><em>Android platform</em></h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">📱</div>
+          <div class="skill-card-title">Core Android</div>
+          <div class="skill-pills">
+            <span class="skill-pill">Kotlin</span>
+            <span class="skill-pill">Java</span>
+            <span class="skill-pill">Android SDK</span>
+            <span class="skill-pill">Jetpack Compose</span>
+            <span class="skill-pill">XML / Material</span>
+            <span class="skill-pill">Jetpack Components</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🏗</div>
+          <div class="skill-card-title">Architecture & Design</div>
+          <div class="skill-pills">
+            <span class="skill-pill">Clean Architecture</span>
+            <span class="skill-pill">MVVM</span>
+            <span class="skill-pill">MVI</span>
+            <span class="skill-pill">SOLID</span>
+            <span class="skill-pill">Repository Pattern</span>
+            <span class="skill-pill">Hilt DI</span>
+            <span class="skill-pill">Modularization</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">⚡</div>
+          <div class="skill-card-title">Concurrency & Data</div>
+          <div class="skill-pills">
+            <span class="skill-pill">Coroutines</span>
+            <span class="skill-pill">Flow</span>
+            <span class="skill-pill">LiveData</span>
+            <span class="skill-pill">Room</span>
+            <span class="skill-pill">DataStore</span>
+            <span class="skill-pill">WorkManager</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">👁</div>
+          <div class="skill-card-title">Computer Vision & Identity</div>
+          <div class="skill-pills">
+            <span class="skill-pill">CameraX</span>
+            <span class="skill-pill">ML Kit</span>
+            <span class="skill-pill">OpenCV</span>
+            <span class="skill-pill">MRZ / OCR</span>
+            <span class="skill-pill">Face Verification</span>
+            <span class="skill-pill">Fingerprint SDK</span>
+            <span class="skill-pill">Document Processing</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🌐</div>
+          <div class="skill-card-title">Networking</div>
+          <div class="skill-pills">
+            <span class="skill-pill">Retrofit</span>
+            <span class="skill-pill">OkHttp</span>
+            <span class="skill-pill">REST APIs</span>
+            <span class="skill-pill">WebSockets</span>
+            <span class="skill-pill">RabbitMQ</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🔐</div>
+          <div class="skill-card-title">Security & Enterprise</div>
+          <div class="skill-pills">
+            <span class="skill-pill">Android Keystore</span>
+            <span class="skill-pill">SSL/TLS</span>
+            <span class="skill-pill">Cert Validation</span>
+            <span class="skill-pill">Biometric APIs</span>
+            <span class="skill-pill">Android Enterprise</span>
+            <span class="skill-pill">MDM / DevicePolicy</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">☁️</div>
+          <div class="skill-card-title">Cloud & Location</div>
+          <div class="skill-pills">
+            <span class="skill-pill">Firebase Auth</span>
+            <span class="skill-pill">FCM</span>
+            <span class="skill-pill">Crashlytics</span>
+            <span class="skill-pill">Remote Config</span>
+            <span class="skill-pill">Google Maps SDK</span>
+            <span class="skill-pill">Geofencing</span>
+          </div>
+        </div>
+        <div class="skill-card reveal">
+          <div class="skill-card-icon">🛠</div>
+          <div class="skill-card-title">Testing & DevOps</div>
+          <div class="skill-pills">
+            <span class="skill-pill">JUnit</span>
+            <span class="skill-pill">Espresso</span>
+            <span class="skill-pill">Git</span>
+            <span class="skill-pill">GitHub</span>
+            <span class="skill-pill">Azure Pipelines</span>
+            <span class="skill-pill">Play Store</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-eyebrow">// experience</p>
+        <h2 class="section-title">Where I've<br /><em>delivered</em></h2>
+      </div>
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-meta">
+            <span class="timeline-company">ID-TK</span>
+            <span class="timeline-period">2024 – Present</span>
+          </div>
+          <p class="timeline-role">Software Engineer · Cairo, Egypt</p>
+          <div class="timeline-card">
+            <ul class="timeline-bullets">
+              <li>Led core enrollment modules in a 2-engineer Android team building enterprise-scale identity verification systems.</li>
+              <li>Architected offline-first enrollment workflows using Room, Coroutines, and Flow for unreliable field networks.</li>
+              <li>Built CameraX-based image capture and validation pipelines for biometric identity enrollment.</li>
+              <li>Integrated fingerprint enrollment, face verification, MRZ scanning, and document validation modules.</li>
+              <li>Implemented resilient WebSocket-based real-time synchronization for enrollment operations.</li>
+              <li>Applied Clean Architecture and modularization; implemented SSL/TLS, certificate validation, and encrypted storage.</li>
+            </ul>
+            <div class="stack-line">
+              <span class="skill-pill">Kotlin</span><span class="skill-pill">Compose</span><span class="skill-pill">CameraX</span>
+              <span class="skill-pill">ML Kit</span><span class="skill-pill">OpenCV</span><span class="skill-pill">WebSockets</span>
+              <span class="skill-pill">Room</span><span class="skill-pill">Hilt</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-meta">
+            <span class="timeline-company">IDEMIA</span>
+            <span class="timeline-period">Apr 2024 – Sep 2024</span>
+          </div>
+          <p class="timeline-role">Android Engineer · Cairo, Egypt</p>
+          <div class="timeline-card">
+            <ul class="timeline-bullets">
+              <li>Contributed to enterprise biometric enrollment systems in secure identity environments.</li>
+              <li>Improved enrollment workflows, biometric capture quality, and identity verification reliability.</li>
+              <li>Improved operational stability across production deployments with cross-functional team collaboration.</li>
+            </ul>
+            <div class="stack-line">
+              <span class="skill-pill">Kotlin</span><span class="skill-pill">Android SDK</span><span class="skill-pill">CameraX</span>
+              <span class="skill-pill">RabbitMQ</span><span class="skill-pill">Biometrics</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-meta">
+            <span class="timeline-company">Momentum Solutions</span>
+            <span class="timeline-period">Oct 2021 – Mar 2024</span>
+          </div>
+          <p class="timeline-role">Android Developer · Cairo, Egypt</p>
+          <div class="timeline-card">
+            <ul class="timeline-bullets">
+              <li>Developed production Android applications across e-commerce, fintech, healthcare, and logistics domains.</li>
+              <li>Integrated Stripe and Paymob payment gateways into production applications.</li>
+              <li>Implemented Google Maps, geofencing, and deep linking for delivery and logistics workflows.</li>
+              <li>Maintained application stability using Firebase Crashlytics, monitoring, and Agile release processes.</li>
+            </ul>
+            <div class="stack-line">
+              <span class="skill-pill">Kotlin</span><span class="skill-pill">MVVM</span><span class="skill-pill">Firebase</span>
+              <span class="skill-pill">Retrofit</span><span class="skill-pill">Google Maps</span><span class="skill-pill">Stripe</span>
+              <span class="skill-pill">Paymob</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="reveal">
+        <p class="section-eyebrow">// projects</p>
+        <h2 class="section-title">Systems I've<br /><em>built & shipped</em></h2>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="projects-group reveal">
+        <p class="projects-section-label">Enterprise &amp; Government</p>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-card-type gov">Government · Identity</div>
+            <div class="project-name">NID</div>
+            <div class="project-tagline">National Identity Enrollment Platform — biometric registration for a government-scale deployment.</div>
+            <ul class="project-contributions list-none">
+              <li>Owned design and implementation of core biometric enrollment workflows</li>
+              <li>Built CameraX-based image acquisition and validation pipelines</li>
+              <li>Integrated fingerprint capture, document processing, and barcode scanning</li>
+              <li>Developed dynamic enrollment forms with advanced business validation logic</li>
+            </ul>
+            <div class="stack-line">
+              <span class="skill-pill">Kotlin</span><span class="skill-pill">CameraX</span><span class="skill-pill">ML Kit</span>
+              <span class="skill-pill">OpenCV</span><span class="skill-pill">WebSockets</span><span class="skill-pill">Hilt</span>
+              <span class="skill-pill">Fingerprint SDK</span>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card-type gov">Enterprise · Biometrics</div>
+            <div class="project-name">EVS</div>
+            <div class="project-tagline">Enrollment Verification System — real-time and offline biometric identity verification platform.</div>
+            <ul class="project-contributions list-none">
+              <li>Implemented fingerprint enrollment and verification via biometric SDKs</li>
+              <li>Developed face capture, validation, and passport MRZ scanning</li>
+              <li>Built WebSocket-based sync and offline-first enrollment strategies</li>
+            </ul>
+            <div class="stack-line">
+              <span class="skill-pill">Kotlin</span><span class="skill-pill">CameraX</span><span class="skill-pill">Room</span>
+              <span class="skill-pill">WebSockets</span><span class="skill-pill">ML Kit</span><span class="skill-pill">Fingerprint SDK</span>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card-type gov">Enterprise · MDM</div>
+            <div class="project-name">MDM</div>
+            <div class="project-tagline">Mobile Device Management — centralized Android device control and policy enforcement solution.</div>
+            <ul class="project-contributions list-none">
+              <li>Implemented device administration and application restriction features</li>
+              <li>Supported enterprise policy enforcement across multiple Android versions</li>
+              <li>Managed device fleet configuration and secure deployment workflows</li>
+            </ul>
+            <div class="stack-line">
+              <span class="skill-pill">Kotlin</span><span class="skill-pill">Android Enterprise</span>
+              <span class="skill-pill">Device Policy API</span><span class="skill-pill">Android SDK</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commercial -->
+      <div class="projects-group reveal">
+        <p class="projects-section-label">Commercial Mobile Applications</p>
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-card-type">Retail · E-Commerce</div>
+            <div class="project-name">Oscar Grand Stores</div>
+            <div class="project-tagline">Large-scale retail and e-commerce mobile application with geofencing and deep linking.</div>
+            <ul class="project-contributions list-none">
+              <li>Resolved critical runtime issues improving application stability</li>
+              <li>Implemented geofencing and deep linking for user engagement</li>
+              <li>Refactored legacy modules for performance and maintainability</li>
+            </ul>
+            <div class="stack-line">
+              <span class="skill-pill">Kotlin</span><span class="skill-pill">Coroutines</span><span class="skill-pill">Hilt</span>
+              <span class="skill-pill">Firebase</span><span class="skill-pill">Geofencing</span><span class="skill-pill">Payment</span>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card-type">Fintech · Real-Time</div>
+            <div class="project-name">Lira Now</div>
+            <div class="project-tagline">Real-time currency exchange application with optimized background sync and caching.</div>
+            <ul class="project-contributions list-none">
+              <li>Developed real-time exchange with optimized API integration</li>
+              <li>Implemented caching and background synchronization mechanisms</li>
+              <li>Improved UI responsiveness for high-frequency data updates</li>
+            </ul>
+            <div class="stack-line">
+              <span class="skill-pill">Kotlin</span><span class="skill-pill">Retrofit</span>
+              <span class="skill-pill">REST APIs</span><span class="skill-pill">Coroutines</span>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-card-type">Healthcare · Booking</div>
+            <div class="project-name">Carina Clinic</div>
+            <div class="project-tagline">Healthcare booking and consultation app with online payment and scheduling APIs.</div>
+            <ul class="project-contributions list-none">
+              <li>Built appointment booking and online payment functionality</li>
+              <li>Integrated backend APIs for scheduling and patient management</li>
+              <li>Contributed to UX improvements and production releases</li>
+            </ul>
+            <div class="stack-line">
+              <span class="skill-pill">Kotlin</span><span class="skill-pill">Retrofit</span>
+              <span class="skill-pill">REST APIs</span><span class="skill-pill">Payment SDK</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <div class="contact-inner reveal">
+        <p class="section-eyebrow" style="text-align:center">// contact</p>
+        <h2 class="section-title">Let's build something<br /><em>important</em></h2>
+        <p class="contact-sub">
+          I'm open to senior Android engineering roles — especially in digital identity,
+          enterprise mobility, fintech, or any product where precision and security matter.
+          Remote, hybrid, or relocation considered.
         </p>
-
-        <div class="buttons">
-            <a href="Ahmed_Khaled_CV.pdf" class="btn btn-primary">
-                Download CV
-            </a>
-
-            <a href="https://linkedin.com/in/YOUR_LINKEDIN" class="btn btn-secondary">
-                LinkedIn
-            </a>
-
-            <a href="https://github.com/ahmedkhaled24" class="btn btn-secondary">
-                GitHub
-            </a>
+        <div style="display:flex;justify-content:center;margin-bottom:1.8rem">
+          <div class="open-badge">
+            <div class="open-dot"></div>
+            Open to opportunities
+          </div>
         </div>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:ahmed.khaled.developer@gmail.com">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            Email
+          </a>
+          <a class="contact-link" href="https://www.linkedin.com/in/ahmed-khaled-developer" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            LinkedIn
+          </a>
+          <a class="contact-link" href="https://github.com/ahmedkhaled24" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+            GitHub
+          </a>
+          <a class="contact-link" href="tel:+201120705039">
+            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+            +20 112 070 5039
+          </a>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section>
-    <div class="container">
+  <!-- FOOTER -->
+  <footer>
+    <span>Ahmed Khaled</span> · Senior Android Engineer · Cairo, Egypt · Built with precision
+  </footer>
 
-        <h2 class="section-title">About Me</h2>
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 60);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
 
-        <p style="text-align:center; max-width:900px; margin:auto;">
-            I specialize in enterprise-grade Android solutions focused on digital identity,
-            biometric enrollment, offline-first architectures, and secure mobile systems.
-            I have hands-on experience delivering production applications used in mission-critical
-            environments where reliability, security, and performance are essential.
-        </p>
-
-    </div>
-</section>
-
-<section>
-    <div class="container">
-
-        <h2 class="section-title">Featured Projects</h2>
-
-        <div class="cards">
-
-            <div class="card">
-                <h3>NID — National Identity Enrollment Platform</h3>
-
-                <p>
-                    Enterprise enrollment platform designed for identity registration
-                    and biometric capture workflows.
-                </p>
-
-                <br>
-
-                <strong>Highlights:</strong>
-
-                <ul>
-                    <li>Fingerprint Enrollment</li>
-                    <li>Smart Card Integration</li>
-                    <li>MRZ Recognition</li>
-                    <li>CameraX Validation Pipelines</li>
-                    <li>Offline Synchronization</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>EVS — Enrollment Verification System</h3>
-
-                <p>
-                    Enterprise biometric identity verification platform supporting
-                    realtime and offline enrollment.
-                </p>
-
-                <br>
-
-                <strong>Highlights:</strong>
-
-                <ul>
-                    <li>Fingerprint Verification</li>
-                    <li>Face Validation</li>
-                    <li>Passport MRZ Processing</li>
-                    <li>WebSocket Communication</li>
-                    <li>Offline Support</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>MDM — Mobile Device Management</h3>
-
-                <p>
-                    Enterprise Android management solution for centralized device
-                    control and policy enforcement.
-                </p>
-
-                <br>
-
-                <strong>Highlights:</strong>
-
-                <ul>
-                    <li>Device Administration</li>
-                    <li>Policy Enforcement</li>
-                    <li>Managed Configurations</li>
-                    <li>Multi-Version Support</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>Oscar Grand Stores</h3>
-
-                <p>
-                    Retail and e-commerce mobile application supporting customer engagement
-                    and commercial workflows.
-                </p>
-
-                <br>
-
-                <strong>Highlights:</strong>
-
-                <ul>
-                    <li>Geofencing</li>
-                    <li>Deep Linking</li>
-                    <li>Payment Integration</li>
-                    <li>Production Support</li>
-                </ul>
-            </div>
-
-        </div>
-
-    </div>
-</section>
-
-<section>
-    <div class="container">
-
-        <h2 class="section-title">Technical Skills</h2>
-
-        <div class="skills">
-
-            <span class="skill">Kotlin</span>
-            <span class="skill">Jetpack Compose</span>
-            <span class="skill">Java</span>
-            <span class="skill">Coroutines</span>
-            <span class="skill">Flow</span>
-            <span class="skill">Room</span>
-            <span class="skill">WorkManager</span>
-            <span class="skill">MVVM</span>
-            <span class="skill">MVI</span>
-            <span class="skill">Clean Architecture</span>
-            <span class="skill">Hilt</span>
-            <span class="skill">Retrofit</span>
-            <span class="skill">WebSockets</span>
-            <span class="skill">CameraX</span>
-            <span class="skill">ML Kit</span>
-            <span class="skill">OpenCV</span>
-            <span class="skill">Fingerprint SDKs</span>
-            <span class="skill">Firebase</span>
-            <span class="skill">Google Maps</span>
-            <span class="skill">Azure Pipelines</span>
-
-        </div>
-
-    </div>
-</section>
-
-<section>
-    <div class="container">
-
-        <h2 class="section-title">Professional Experience</h2>
-
-        <div class="experience-item">
-            <h3>ID-TK</h3>
-
-            <p>
-                <strong>Software Engineer</strong> | 2024 – Present
-            </p>
-
-            <p>
-                Leading and contributing to enterprise biometric enrollment and
-                identity verification systems.
-            </p>
-        </div>
-
-        <div class="experience-item">
-            <h3>IDEMIA</h3>
-
-            <p>
-                <strong>Android Engineer</strong> | 2024
-            </p>
-
-            <p>
-                Contributed to secure identity solutions and enterprise biometric
-                enrollment platforms.
-            </p>
-        </div>
-
-        <div class="experience-item">
-            <h3>Momentum Solutions</h3>
-
-            <p>
-                <strong>Android Developer</strong> | 2021 – 2024
-            </p>
-
-            <p>
-                Delivered fintech, healthcare, logistics, and e-commerce mobile
-                applications using modern Android technologies.
-            </p>
-        </div>
-
-    </div>
-</section>
-
-<footer>
-
-    <h2>Let's Connect</h2>
-
-    <br>
-
-    <p>Email: ahmed.khaled.developer@gmail.com</p>
-
-    <p>Phone: +20 1120705039</p>
-
-    <p>Location: Cairo, Egypt</p>
-
-    <p>Open to Remote & Relocation Opportunities</p>
-
-    <br>
-
-    <p>
-        © 2026 Ahmed Khaled. All rights reserved.
-    </p>
-
-</footer>
-
+    // Smooth active nav
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 100) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current
+          ? 'var(--accent)' : '';
+      });
+    });
+  </script>
 </body>
 </html>
-```
